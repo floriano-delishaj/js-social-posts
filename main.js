@@ -1,6 +1,8 @@
+
+let idPost = 0;
 const post = [
     {
-        id: 1,
+        id: ++idPost,
         user: 'Floriano Delishaj',
         userPhoto:'https://unsplash.it/300/300?image=',
         data: '06-30-2021',
@@ -9,7 +11,7 @@ const post = [
         likes: 71,
     },
     {
-        id: 2,
+        id: ++idPost,
         user: 'Micheal Jordan',
         userPhoto:'https://unsplash.it/300/300?image=',
         data: '07-02-2021',
@@ -18,7 +20,7 @@ const post = [
         likes: 4721,
     },
     {
-        id: 3,
+        id: ++idPost,
         user:'Micheal Scoffield',
         userPhoto:'https://unsplash.it/300/300?image=',
         data: '01-01-2022',
@@ -29,8 +31,16 @@ const post = [
 ]
 
 const containerPost = document.getElementById('container');
+const numLike = [];
+
 
 for (i = 0; i < post.length; i++) {
+
+    numLike[i] = post[i].likes;
+
+    let [month, day, year] = post[i].data;
+    post[i].data = [day, month, year]
+
     containerPost.innerHTML += `
     <div class="post">
     <div class="post__header">
@@ -67,23 +77,26 @@ for (i = 0; i < post.length; i++) {
 
 
 const likeButton = document.querySelectorAll('.js-like-button');
-let counterLike = 0;
+// let counterLike = 0;
 const arrayLikes = [];
 
 for (let i = 0; i < likeButton.length; i++) {
 likeButton[i].addEventListener('click', function() {
 
     const likeCounter = document.getElementById(`like-counter-${post[i].id}`)
-    if (counterLike === 0) {
-        likeCounter.innerHTML = ++post[i].likes
-        likeButton[i].classList.add('like-button--liked');
-        counterLike++
-        arrayLikes.push(post[i].id)
-    } else {
-        likeButton[i].classList.remove('like-button--liked');
-        likeCounter.innerHTML = --post[i].likes
-        counterLike--
-    }
-    
+    // if (counterLike === 0) {
+    //     likeCounter.innerHTML = ++post[i].likes
+    //     likeButton[i].classList.add('like-button--liked');
+    //     counterLike++
+    //     arrayLikes.push(post[i].id)
+    // } else {
+    //     likeButton[i].classList.remove('like-button--liked');
+    //     likeCounter.innerHTML = --post[i].likes
+    //     counterLike--
+    // }
+    likeButton[i].classList.toggle('like-button--liked');
+    numLike[i]++
+    likeCounter.innerHTML = numLike[i];
+
 })
 }

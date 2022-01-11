@@ -68,13 +68,22 @@ for (i = 0; i < post.length; i++) {
 
 const likeButton = document.querySelectorAll('.js-like-button');
 let counterLike = 0;
+const arrayLikes = [];
 
 for (let i = 0; i < likeButton.length; i++) {
 likeButton[i].addEventListener('click', function() {
 
     const likeCounter = document.getElementById(`like-counter-${post[i].id}`)
-    likeButton[i].classList.toggle('like-button--liked');
-    likeCounter.innerHTML = post[i].likes++
-
+    if (counterLike === 0) {
+        likeCounter.innerHTML = ++post[i].likes
+        likeButton[i].classList.add('like-button--liked');
+        counterLike++
+        arrayLikes.push(post[i].id)
+    } else {
+        likeButton[i].classList.remove('like-button--liked');
+        likeCounter.innerHTML = --post[i].likes
+        counterLike--
+    }
+    
 })
 }
